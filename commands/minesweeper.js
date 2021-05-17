@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const Minesweeper = require('discord.js-minesweeper');
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
-  const minesResponse = "you need to provide a number of mines between 2 and 16. Derp."
+  const minesResponse = "you need to provide a number of mines between 2 and 16. Noob."
 
   if (!args || args.length < 1) return message.reply(minesResponse);
 
@@ -36,4 +36,3 @@ exports.help = {
   description: "Sends an 8 x 8 game of minesweeper with the amount of mines provided (between 2 and 16).",
   usage: "minesweeper [mines]"
 };
-//24.30.126.104
