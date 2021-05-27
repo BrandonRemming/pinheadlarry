@@ -1,6 +1,6 @@
 {
   "name": "pinheadlarry",
-  "version": "3.4.2",
+  "version": "2.3.7",
   "description": "A Discord.js bot with a command handler and reloadable commands.",
   "main": "index.js",
   "scripts": {
