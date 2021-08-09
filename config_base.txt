@@ -8,14 +8,20 @@ const config = {
   // Bot Support, level 8 by default. Array of user ID strings
   "support": [],
 
-  // Your Bot's Token. Available on https://discordapp.com/developers/applications/me
+  // Your Bot's Token. Available on https://discord.com/developers/applications/me
   "token": {{token}},
+
+  // Intents the bot needs.
+  // By default GuideBot needs Guilds, Guild Messages and Direct Messages to work.
+  // For join messages to work you need Guild Members, which is privileged and requires extra setup.
+  // For more info about intents see the README.
+  intents: {{intents}},
 
   // PERMISSION LEVEL DEFINITIONS.
   permLevels: [
     // This is the lowest permisison level, this is for non-roled users.
     { level: 0,
-      name: "User", 
+      name: "User",
       // Don't bother checking, just return true which allows them to execute any command their
       // level allows them to.
       check: () => true
@@ -31,8 +37,8 @@ const config = {
       // If they don't then return false, which will prevent them from executing the command.
       check: (message) => {
         try {
-          const modRole = message.guild.roles.find(r => r.name.toLowerCase() === message.settings.modRole.toLowerCase());
-          if (modRole && message.member.roles.has(modRole.id)) return true;
+          const modRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === message.settings.modRole.toLowerCase());
+          if (modRole && message.member.roles.cache.has(modRole.id)) return true;
         } catch (e) {
           return false;
         }
@@ -40,11 +46,11 @@ const config = {
     },
 
     { level: 3,
-      name: "Administrator", 
+      name: "Administrator",
       check: (message) => {
         try {
-          const adminRole = message.guild.roles.find(r => r.name.toLowerCase() === message.settings.adminRole.toLowerCase());
-          return (adminRole && message.member.roles.has(adminRole.id));
+          const adminRole = message.guild.roles.cache.find(r => r.name.toLowerCase() === message.settings.adminRole.toLowerCase());
+          return (adminRole && message.member.roles.cache.has(adminRole.id));
         } catch (e) {
           return false;
         }
@@ -52,7 +58,7 @@ const config = {
     },
     // This is the server owner.
     { level: 4,
-      name: "Server Owner", 
+      name: "Server Owner",
       // Simple check, if the guild owner id matches the message author's ID, then it will return true.
       // Otherwise it will return false.
       check: (message) => message.channel.type === "text" ? (message.guild.ownerID === message.author.id ? true : false) : false
@@ -76,10 +82,11 @@ const config = {
     // This is the bot owner, this should be the highest permission level available.
     // The reason this should be the highest level is because of dangerous commands such as eval
     // or exec (if the owner has that).
+    // Updated to utilize the Teams type from the Application, pulls a list of "Owners" from it.
     { level: 10,
-      name: "Bot Owner", 
-      // Another simple check, compares the message author id to the one stored in the config file.
-      check: (message) => message.client.config.ownerID === message.author.id
+      name: "Bot Owner",
+      // Another simple check, compares the message author id to a list of owners found in the bot application.
+      check: (message) => message.client.owners.includes(message.author.id)
     }
   ]
 };

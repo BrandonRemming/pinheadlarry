@@ -1,18 +1,18 @@
-exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
-  const msg = await message.channel.send("Ping?");
-  msg.edit(`Pong! Latency is ${msg.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`);
+exports.run = async (client, message, args, level) => {
+    const msg = await message.channel.send("Ping?");
+    msg.edit(`Pong! Latency is ${msg.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`);
 };
 
 exports.conf = {
-  enabled: true,
-  guildOnly: false,
-  aliases: [],
-  permLevel: "User"
+    enabled: true,
+    guildOnly: false,
+    aliases: [],
+    permLevel: "User"
 };
 
 exports.help = {
-  name: "ping",
-  category: "Miscellaneous",
-  description: "It like... Pings. Then Pongs. And it's not Ping Pong.",
-  usage: "ping"
+    name: "ping",
+    category: "Miscellaneous",
+    description: "It pings, then pongs, but it's not ping pong.",
+    usage: "ping"
 };
