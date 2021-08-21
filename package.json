@@ -1,6 +1,6 @@
 {
   "name": "pinheadlarry",
-  "version": "2.4.2-a",
+  "version": "2.4.2-b",
   "description": "A Discord.js utility bot with a command handler and reloadable commands.",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,9 @@
     "enmap": "^5.8.5",
     "inquirer": "^8.0.0",
     "moment": "^2.29.1",
-    "moment-duration-format": "^2.3.2"
+    "moment-duration-format": "^2.3.2",
+    "noblox.js": "^4.8.6",
+    "puppeteer": "^10.2.0"
   },
   "repository": {
     "type": "git",
@@ -31,5 +33,5 @@
   "bugs": {
     "url": "https://github.com/BrandonRemming/pinheadlarry/issues"
   },
-  "homepage": "https://github.com/BrandonRemming/pinheadlarry#readme"
+  "homepage": "https://github.com/BrandonRemming/pinheadlarry"
 }
