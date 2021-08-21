@@ -19,7 +19,7 @@ const config = {
 
   // PERMISSION LEVEL DEFINITIONS.
   permLevels: [
-    // This is the lowest permisison level, this is for non-roled users.
+    // This is the lowest permission level, this is for non-roled users.
     { level: 0,
       name: "User",
       // Don't bother checking, just return true which allows them to execute any command their
@@ -64,7 +64,7 @@ const config = {
       check: (message) => message.channel.type === "text" ? (message.guild.ownerID === message.author.id ? true : false) : false
     },
 
-    // Bot Support is a special inbetween level that has the equivalent of server owner access
+    // Bot Support is a special in-between level that has the equivalent of server owner access
     // to any server they joins, in order to help troubleshoot the bot on behalf of owners.
     { level: 8,
       name: "Bot Support",

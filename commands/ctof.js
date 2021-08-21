@@ -1,9 +1,9 @@
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args, level) => {
-    if (!args || args.length < 1) return message.reply("you didn't provide any arguments.");
-    const notNumberResponse = "you need to provide a temperature value."
-    const tooLowResponse = "you need to provide a temperature value greater than -273.15°C.";
+    if (!args || args.length < 1) return message.reply("You didn't provide any arguments.");
+    const notNumberResponse = "You need to provide a temperature value."
+    const tooLowResponse = "You need to provide a temperature value greater than -273.15°C.";
 
     const isNumber = val => typeof val === 'number' && val === val;
     const toDecimalMark = num => num.toLocaleString('en-US');
@@ -16,11 +16,11 @@ exports.run = async (client, message, args, level) => {
     var fahrenheit = toDecimalMark(celsiusToFahrenheit(arguments));
     var celsius = toDecimalMark(arguments);
 
-    const celsiusToFahrenheitEmbed = new Discord.MessageEmbed()
+    const celsiusToFahrenheitEmbed = new MessageEmbed()
         .setColor([4,141,137])
         .setTitle(`Celsius to Fahrenheit`)
         .setDescription(`${celsius}°C in Fahrenheit:\n${fahrenheit}°F`)
-    message.channel.send({embed: celsiusToFahrenheitEmbed});
+    message.channel.send({ embeds: [celsiusToFahrenheitEmbed] });
 };
 
 exports.conf = {

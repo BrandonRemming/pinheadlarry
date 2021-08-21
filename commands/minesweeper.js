@@ -1,10 +1,10 @@
-const Discord = require('discord.js');
-const Minesweeper = require('discord.js-minesweeper');
+const Discord = require("discord.js");
+const Minesweeper = require("discord.js-minesweeper");
 
 exports.run = async (client, message, args, level) => {
-    const isNumber = val => typeof val === 'number' && val === val;
-
-    const minesResponse = "you need to provide a number of mines between 2 and 16. Derp."
+    const isNumber = val => typeof val === "number" && val === val;
+    const replying = client.settings.ensure(message.guild.id, client.config.defaultSettings).commandReply;
+    const minesResponse = { content: "You need to provide a number of mines between 2 and 16.", allowedMentions: { repliedUser: (replying === "true") }}
 
     if (!args || args.length < 1) return message.reply(minesResponse);
 
@@ -21,7 +21,7 @@ exports.run = async (client, message, args, level) => {
 
     return matrix
         ? message.channel.send(`__**Minesweeper**__\n__Number of mines:__ ${mines}\nIf there are ${mines} squares left and no mines have been clicked on, you win.\n${matrix}`)
-        : message.reply("you have provided an invalid number of mines. You need to provide a number of mines between 1 and 16.");
+        : message.reply("You have provided an invalid number of mines. You need to provide a number of mines between 1 and 16.");
 };
 
 exports.conf = {

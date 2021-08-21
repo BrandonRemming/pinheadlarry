@@ -1,6 +1,11 @@
 # node and npm
 node_modules
 
+# commands
+commands/owners.js
+commands/patchy.js
+commands/random1.js
+
 # misc
 data
 config.js

@@ -54,15 +54,15 @@ module.exports = (client) => {
         text = text
             .replace(/`/g, "`" + String.fromCharCode(8203))
             .replace(/@/g, "@" + String.fromCharCode(8203))
-            .replace(client.token, "mfa.VkO_2G4Qv3T--NO--lWetW_tjND--TOKEN--QFTm6YGtzq9PH--4U--tG0");
+            .replace(client.token, "[REDACTED]");
 
         return text;
     };
 
     client.loadCommand = (commandName) => {
         try {
-            client.logger.log(`Loading Command: ${commandName}`);
             const props = require(`../commands/${commandName}`);
+            client.logger.log(`Loading Command: ${props.help.name}`, "log");
             if (props.init) {
                 props.init(client);
             }
@@ -83,7 +83,7 @@ module.exports = (client) => {
         } else if (client.aliases.has(commandName)) {
             command = client.commands.get(client.aliases.get(commandName));
         }
-        if (!command) return `the command \`${commandName}\` doesn"t seem to exist, nor is it an alias. Try again!`;
+        if (!command) return `the command \`${commandName}\` doesn't seem to exist, nor is it an alias. Try again!`;
 
         if (command.shutdown) {
             await command.shutdown(client);

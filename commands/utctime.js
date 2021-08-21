@@ -1,14 +1,14 @@
-const Discord = require('discord.js');
+const { MessageEmbed } = require("discord.js");
 
 exports.run = async (client, message, args, level) => {
     let date = new Date(Date.now());
     let utcString = date.toUTCString().slice(0, 25);
 
-    const utcEmbed = new Discord.MessageEmbed()
+    const utcEmbed = new MessageEmbed()
         .setColor([4,141,137])
         .setTitle("Current UTC Time and Date:")
         .setDescription(utcString)
-    message.channel.send({embed: utcEmbed});
+    message.channel.send({ embeds: [utcEmbed] });
 };
 
 exports.conf = {

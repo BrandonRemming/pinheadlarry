@@ -5,7 +5,7 @@ module.exports = async (client, message) => {
 
     const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);
     if (message.content.match(prefixMention)) {
-        return message.reply(`my prefix on this guild is \`${settings.prefix}\`.`);
+        return message.reply(`the prefix for this guild is \`${settings.prefix}\`.`);
     }
 
     if (message.content.indexOf(settings.prefix) !== 0) return;
@@ -25,6 +25,8 @@ module.exports = async (client, message) => {
         return message.channel.send("This command is unavailable via private message. Please run this command in a guild.");
     }
 
+    if (!cmd.conf.enabled) return;
+
     if (level < client.levelCache[cmd.conf.permLevel]) {
         if (settings.systemNotice === "true") {
             return message.channel.send(`You do not have permission to use this command.\nYour permission level is ${level} (${client.config.permLevels.find(l => l.level === level).name})\nThis command requires level ${client.levelCache[cmd.conf.permLevel]} (${cmd.conf.permLevel})`);
@@ -40,6 +42,11 @@ module.exports = async (client, message) => {
         message.flags.push(args.shift().slice(1));
     }
 
-    client.logger.cmd(`[CMD] ${client.config.permLevels.find(l => l.level === level).name} ${message.author.username} (${message.author.id}) ran command ${cmd.help.name}`);
-    cmd.run(client, message, args, level);
+    try {
+        await cmd.run(client, message, args, level);
+        client.logger.log(`${client.config.permLevels.find(l => l.level === level).name} ${message.author.id} ran command ${cmd.help.name}`, "cmd");
+    } catch (e) {
+        message.channel.send({ content: `There was a problem with your request.\n\`\`\`${e.message}\`\`\`` })
+            .catch(e => console.error("An error occurred replying on an error", e));
+    }
 };

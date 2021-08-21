@@ -1,9 +1,10 @@
-const Discord = require('discord.js');
+const { MessageEmbed } = require("discord.js");
 
 exports.run = async (client, message, args, level) => {
-    if (!args || args.length < 1) return message.reply("you didn't provide any arguments.");
+    const replying = client.settings.ensure(message.guild.id, client.config.defaultSettings).commandReply;
+    if (!args || args.length < 1) return message.reply({ content: "You didn't provide any arguments.", allowedMentions: { repliedUser: (replying === "true") }});
 
-    const isNumber = val => typeof val === 'number' && val === val;
+    const isNumber = val => typeof val === "number" && val === val;
     const inRange = (n, start, end = null) => {
         if (end && start > end) [end, start] = [start, end];
         return end == null ? n >= 0 && n < start : n >= start && n < end;
@@ -20,15 +21,15 @@ exports.run = async (client, message, args, level) => {
     let bVal = parseInt(args[2])
 
     if ((valPasses(rVal) == true) && (valPasses(gVal) == true) && (valPasses(bVal) == true)) {
-        const RGBToHex = (r, g, b) => ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');
+        const RGBToHex = (r, g, b) => ((r << 16) + (g << 8) + b).toString(16).padStart(6, "0");
         const hex = RGBToHex(rVal, gVal, bVal);
 
-        const rgbtohexEmbed = new Discord.MessageEmbed()
+        const rgbtohexEmbed = new MessageEmbed()
             .setColor(`#${hex}`)
-            .setTitle(`RGB to Hex`)
+            .setTitle("RGB to Hex")
             .setDescription(`Hex of ${rVal} ${gVal} ${bVal}:\n#${hex}`)
-        message.channel.send({embed: rgbtohexEmbed});
-    } else return message.reply("you need to provide three values between 0 and 255.")
+        message.channel.send({ embeds: [rgbtohexEmbed] });
+    } else return message.reply({ content: "You need to provide three values between 0 and 255.", allowedMentions: { repliedUser: (replying === "true") }})
 };
 
 exports.conf = {
