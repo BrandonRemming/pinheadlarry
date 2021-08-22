@@ -33,7 +33,7 @@ let prompts = [
     {
         type: "input",
         name: "token",
-        message: "Please enter the bot token from the application page."
+        message: "Please enter the bot token from the application page. NEVER SHARE THIS WITH ANYONE!"
     },
     {
         type: "checkbox",
@@ -62,7 +62,7 @@ let prompts = [
             { "name": "Guild Messages", "value": "GUILD_MESSAGES", "checked": true },
             { "name": "Direct Messages", "value": "DIRECT_MESSAGES", "checked": true },
             { "name": "Guild Bans", "value": "GUILD_BANS" },
-            { "name": "Guild Emojis", "value": "GUILD_EMOJIS", "checked": true},
+            { "name": "Guild Emojis/Stickers", "value": "GUILD_EMOJIS_AND_STICKERS", "checked": true},
             { "name": "Guild Integrations", "value": "GUILD_INTEGRATIONS" },
             { "name": "Guild Webhooks", "value": "GUILD_WEBHOOKS" },
             { "name": "Guild Invites", "value": "GUILD_INVITES" },
@@ -78,11 +78,11 @@ let prompts = [
 ];
 
 (async () => {
-    console.log("Setting Up Pinhead Larry Configuration...");
+    console.log("Setting up Pinhead Larry configuration...");
     await settings.defer;
     if (!settings.has("default")) {
         prompts = prompts.slice(1);
-        console.log("First Start! Inserting default guild settings in the database...");
+        console.log("First start! Inserting default guild settings in the database...");
         await settings.set("default", defaultSettings);
     }
 
